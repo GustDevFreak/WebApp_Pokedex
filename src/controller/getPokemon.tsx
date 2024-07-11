@@ -23,6 +23,7 @@ export async function getPokemons(): Promise<Pokemon[]> {
         sp_atk: pokemon.sp_atk,               
         sp_def: pokemon.sp_def,         
         speed: pokemon.speed,              
+        type: pokemon.type[0],              
     }));
 
     // Retorna el array de objetos Pokemon

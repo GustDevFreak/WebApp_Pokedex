@@ -11,4 +11,5 @@ export type Pokemon = {
     sp_atk: string;
     sp_def: string;
     speed: string;
+    type: Array<any>;
 }
