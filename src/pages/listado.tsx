@@ -16,6 +16,7 @@ const Listado = () => {
     hasta que se actualice con los datos de la API.
     */
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+    const [query, setQuery] = useState("");
 
     // Uso del hook useEffect para ejecutar el código cuando el componente se monta
     useEffect(() => {
@@ -34,15 +35,30 @@ const Listado = () => {
         getAll();
     });
 
+    const filterPokemon = pokemons?.slice(0, 28).filter((pokemon) => {
+        return pokemon.name.toLocaleLowerCase().match(query.toLocaleLowerCase());
+    })
+
     return (
         <>
             <h1>Pokemones Randoms</h1>
+
+            <header>
+                <input 
+                    value={query}
+                    placeholder="Search Pokemon..."
+                    // Accede al valor del campo de entrada a través de event.target.value.
+                    // el método trim() para eliminar los espacios en blanco al principio y al final del valor.
+                    onChange={(event) => setQuery(event.target.value.trim())}
+                    type="text"
+                />
+            </header>
 
             <div className='content-wrapper'>
                 <div className='content'>
                     <div className='row gap-3'>
                         {/* Mapeo de los primeros 5 pokemons del estado para renderizar tarjetas */}
-                        {pokemons?.slice(0, 28).map((pokemon) => (
+                        {filterPokemon?.slice(0, 28).map((pokemon) => (
                             <Card className='mx-auto' style={{ width: '18rem' }}>
                                 <Card.Header><b>Tipo: </b>{pokemon.type}</Card.Header>
                                 <Card.Img width="80" height="100" variant="top" className='mx-auto w-50' src={pokemon.img_gif} />
